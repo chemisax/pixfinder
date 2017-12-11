@@ -1,6 +1,6 @@
 !function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.pix=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 /**
- * (c) 2014-2015, Andrii Heonia
+ * (c) 2014, Andrey Geonya
  * https://github.com/dstructjs/disjoint-set
  */
 
@@ -1140,7 +1140,7 @@ function enlargedArea(a, b) {
            (Math.max(b[3], a[3]) - Math.min(b[1], a[1]));
 }
 
-function intersectionArea (a, b) {
+function intersectionArea(a, b) {
     var minX = Math.max(a[0], b[0]),
         minY = Math.max(a[1], b[1]),
         maxX = Math.min(a[2], b[2]),
@@ -1157,7 +1157,7 @@ function contains(a, b) {
            b[3] <= a[3];
 }
 
-function intersects (a, b) {
+function intersects(a, b) {
     return b[0] <= a[2] &&
            b[1] <= a[3] &&
            b[2] >= a[0] &&
@@ -1234,7 +1234,7 @@ function swap(arr, i, j) {
 
 
 // export as AMD/CommonJS module or global variable
-if (typeof define === 'function' && define.amd) define(function() { return rbush; });
+if (typeof define === 'function' && define.amd) define('rbush', function() { return rbush; });
 else if (typeof module !== 'undefined') module.exports = rbush;
 else if (typeof self !== 'undefined') self.rbush = rbush;
 else window.rbush = rbush;
@@ -1427,16 +1427,11 @@ exports.util = util;
 },{"./util/canvas":8,"./util/dom":9,"./util/math":10,"disjoint-set":1,"hull.js":3,"img-bfs":5,"rbush":6}],8:[function(_dereq_,module,exports){
 'use strict';
 
-// (HTMLImageElement | HTMLCanvasElement) -> HTMLCanvasElement
+// PImage -> HTMLCanvasElement
+// PImage instance assumed
 function wrap(img) {
-    if (!!(img.getContext && img.getContext('2d'))) {
-        return img;
-    }
-    var canv = document.createElement('canvas');
-    canv.width = img.width;
-    canv.height = img.height;
-    canv.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
-    return canv;
+    img.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
+    return img;
 }
 
 // (Number, Object) -> Point

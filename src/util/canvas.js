@@ -1,15 +1,10 @@
 'use strict';
 
-// (HTMLImageElement | HTMLCanvasElement) -> HTMLCanvasElement
+// PImage -> HTMLCanvasElement
+// PImage instance assumed
 function wrap(img) {
-    if (!!(img.getContext && img.getContext('2d'))) {
-        return img;
-    }
-    var canv = document.createElement('canvas');
-    canv.width = img.width;
-    canv.height = img.height;
-    canv.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
-    return canv;
+    img.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
+    return img;
 }
 
 // (Number, Object) -> Point
